@@ -1,24 +1,34 @@
-import React, { Component } from 'react';
-import { Grid, Card, Rating, Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
-
-import CardList from '../card'
+import React, { Component } from 'react'
+import { Icon, Item, Label } from 'semantic-ui-react'
 
 class Tags extends Component {
+    constructor (props) {
+        super (props)
+        this.state = {
+            tagsList: []
+        }
+    }
+
+    componentWillMount () {
+        this.setState({
+            tagsList: this.props.tagsList
+        })
+    }
+
     render() {
-    return (
-        <Item.Group divided>             
-            <Item.Extra>
-                <Icon as="i" size="large" name="tags"/>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a">IMAX</Label>
-                <Label as = "a" icon='globe' content='Additional Languages' />
-            </Item.Extra>
-        </Item.Group>    
-        );
+        let tagsList = this.state.tagsList
+        return (
+            <Item.Group divided>
+                <Item.Extra>
+                    <Icon as="i" size="large" name="tags"/>
+                    {
+                        tagsList ? tagsList.map((item, i) => {
+                            return <Label key={i} as = "a" href={item.url}>{item.name}</Label>
+                        }) : ''
+                    }
+                </Item.Extra>
+            </Item.Group>
+            );
     }
 }
 

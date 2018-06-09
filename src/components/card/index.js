@@ -1,13 +1,14 @@
 import React from 'react'
-import { Grid, Card, Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
-
-import ItemCard from './item'
-
+import { Card } from 'semantic-ui-react'
+import CartService from './cart.service'
+import CardItem from './item'
 const CardList = () => (
   <Card.Group itemsPerRow={3}>
-    {[...Array(6)].map((x, i) =>
-        <ItemCard key={i} />
-    )}      
+    {CartService.listCart.map((element, i) =>
+        <CardItem key={i}
+                  CartItem={element}
+        />
+    )}
   </Card.Group>
 )
 
