@@ -2,23 +2,9 @@ import React, { Component } from 'react'
 import { Card } from 'semantic-ui-react'
 import CardItem from './item'
 
-class Related extends Component {
-    constructor (props) {
-        super (props)
-        this.state = {
-            relatedList: []
-        }
-    }
-
-    componentWillMount () {
-        this.setState({
-            relatedList: this.props.relatedList
-        })
-    }
-
+class Related extends Component {    
     render() {
-        let relatedList = this.state.relatedList
-        console.log('==relatedList', relatedList)
+        let relatedList = this.props.relatedList
         return (
             <Card.Group itemsPerRow={3}>
                 {

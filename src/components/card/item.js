@@ -2,20 +2,9 @@ import React, {Component} from 'react'
 import { Card, Rating, Image as ImageComponent} from 'semantic-ui-react'
 import Boxprice from './boxprice'
 
-class CardItem extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            CardItem: {}
-        }
-    }
-
-    componentWillMount() {
-        this.setState({CardItem: this.props.CardItem})
-    }
-
+class CardItem extends Component {   
     renderCard () {
-        let CardItem = this.state.CardItem
+        let CardItem = this.props.CartItem
         // Map data
         let dataItem = {
             name: CardItem.title ? CardItem.title : '',

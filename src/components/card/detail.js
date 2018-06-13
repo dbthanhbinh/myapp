@@ -3,6 +3,8 @@ import { Rating, Button, Reveal, Image, Item } from 'semantic-ui-react'
 import TabContent from './content'
 import Related from './related'
 import Tags from './tags'
+import Colors from './colors'
+import Sizes from './sizes'
 import CardService from './card.service'
 import SocialButton from '../social/index'
 import './card.css'
@@ -37,9 +39,12 @@ class CardDetail extends Component {
             price: detailCard.price,
             discount: detailCard.discount,
             description: detailCard.excerpt,
+            tagsList: detailCard.tags,
+            colorList: detailCard.colors,
+            sizeList: detailCard.sizes,
             relatedList: detailCard.relatedList
         }
-        console.log('=====fff', detailCard.relatedList)
+
         return (
             <div>
                 <Item.Group divided>
@@ -62,6 +67,8 @@ class CardDetail extends Component {
 
                             <Item.Description>{paragraph}</Item.Description>
                             <Boxprice price={dataItem.price} discount={dataItem.discount} />
+                            <Colors colorList={dataItem.colorList}/>
+                            <Sizes sizeList={dataItem.sizeList}/>
                             <Item.Group divided>
                                 <Button.Group>
                                     <Button>Buy</Button>
@@ -77,7 +84,7 @@ class CardDetail extends Component {
                     <TabContent />
                 </Item.Group>
                 <Tags tagsList={dataItem.tagsList}/>
-                <Related  relatedList={detailCard.relatedList}/>
+                <Related  relatedList={dataItem.relatedList}/>
             </div>
             );
     }

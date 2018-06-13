@@ -15,10 +15,9 @@ const API = {
 
     get(endPoint, callback, params) {
         // url (required), options (optional)
-        fetch(API.baseUrl + endPoint, API.options)
-        .then(function(response) {
+        fetch(API.baseUrl + endPoint, API.options).then((response) => {
             return callback(null, response.json())
-        }).catch(function(err) {
+        }).catch((err) => {
             // Error :(
             console.log('Error!', err)    
         });
