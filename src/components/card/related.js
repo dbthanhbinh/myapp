@@ -18,7 +18,7 @@ class Related extends Component {
 
     render() {
         let relatedList = this.state.relatedList
-        // console.log(relatedList)
+        console.log('==relatedList', relatedList)
         return (
             <Card.Group itemsPerRow={3}>
                 {

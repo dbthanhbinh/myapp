@@ -1,42 +1,52 @@
 import React, {Component} from 'react'
-import { Card, Rating, Button, Icon, Image as ImageComponent, Label } from 'semantic-ui-react'
+import { Card, Rating, Image as ImageComponent} from 'semantic-ui-react'
 import Boxprice from './boxprice'
 
-class CartItem extends Component {
+class CardItem extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            CartItem: {}
+            CardItem: {}
         }
     }
 
     componentWillMount() {
-        this.setState({CartItem: this.props.CartItem})
+        this.setState({CardItem: this.props.CardItem})
     }
 
-    renderCart (CartItem) {
+    renderCard () {
+        let CardItem = this.state.CardItem
+        // Map data
+        let dataItem = {
+            name: CardItem.title ? CardItem.title : '',
+            url: '/detail/' + CardItem.id,
+            image: '',
+            price: CardItem.price,
+            discount: CardItem.discount,
+            description: CardItem.excerpt
+        }
+
         return (
             <Card color='red'>
                 <a href="">
-                    <ImageComponent src={CartItem.image} />
+                    <ImageComponent src={dataItem.image} />
                 </a>
                 <Card.Content>
-                    <Card.Header><a href="/detail">{CartItem.name}</a></Card.Header>
+                    <Card.Header><a href={dataItem.url}>{dataItem.name}</a></Card.Header>
                     <Card.Meta>Joined in 2016</Card.Meta>
                     <Rating icon='star' pointing='right' defaultRating={3} maxRating={5} />
-                    <Card.Description>Daniel is a comedian living in Nashville.</Card.Description>
+                    <Card.Description>{dataItem.description}</Card.Description>
                 </Card.Content>
                 <Card.Content extra>
-                    <Boxprice price={CartItem.price} discount={CartItem.discount}/>
+                    <Boxprice price={dataItem.price} discount={dataItem.discount}/>
                 </Card.Content>
             </Card>
         )
     }
 
     render () {
-        let CartItem = this.state.CartItem
-        return this.renderCart(CartItem)
+        return this.renderCard()
     }
 }
   
-export default CartItem
+export default CardItem

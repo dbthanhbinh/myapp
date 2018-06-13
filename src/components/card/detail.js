@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
-import { Rating, Button, Reveal, Icon, Image, Item, Label } from 'semantic-ui-react'
+import { Rating, Button, Reveal, Image, Item } from 'semantic-ui-react'
 import TabContent from './content'
 import Related from './related'
 import Tags from './tags'
-import CartService from './cart.service'
+import CardService from './card.service'
 import SocialButton from '../social/index'
-import './cart.css'
+import './card.css'
 import Boxprice from './boxprice'
 
 const paragraph = <Image src='https://react.semantic-ui.com/assets/images/wireframe/short-paragraph.png' />
 
-class CartDetail extends Component {
+class CardDetail extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            detailCart: {}
+            detailCard: {}
         }
     }
 
+    // componentWillRecieveProps --> shouldComponentUpdate-->componentWillUpdate
+    // -->render-->componentDidUpdate
     componentWillMount () {
-        this.setState({
-            detailCart: CartService.detailCart
+        let id = this.props.match.params.id
+        CardService.detail(id, (results) => {
+            this.setState({detailCard: results.data})
         })
     }
 
     render() {
-        let detailCart = this.state.detailCart
+        let detailCard = this.state.detailCard
 
+        // Map data
+        let dataItem = {
+            name: detailCard.title ? detailCard.title : '',
+            image: '',
+            price: detailCard.price,
+            discount: detailCard.discount,
+            description: detailCard.excerpt,
+            relatedList: detailCard.relatedList
+        }
+        console.log('=====fff', detailCard.relatedList)
         return (
             <div>
                 <Item.Group divided>
@@ -41,14 +54,14 @@ class CartDetail extends Component {
                             </Reveal.Content>
                         </Reveal>
                         <Item.Content>
-                            <Item.Header as='h1'>{detailCart.name}</Item.Header>
+                            <Item.Header as='h1'>{dataItem.name}</Item.Header>
                             <Item.Meta>
                             <span className='cinema'>Union Square 14</span>
                             </Item.Meta>
                             <Rating icon='star' pointing='right' defaultRating={3} maxRating={5} />
 
                             <Item.Description>{paragraph}</Item.Description>
-                            <Boxprice price={detailCart.price} discount={detailCart.discount}/>
+                            <Boxprice price={dataItem.price} discount={dataItem.discount} />
                             <Item.Group divided>
                                 <Button.Group>
                                     <Button>Buy</Button>
@@ -63,11 +76,11 @@ class CartDetail extends Component {
                 <Item.Group divided>
                     <TabContent />
                 </Item.Group>
-                <Tags tagsList={detailCart.tagsList}/>
-                <Related  relatedList={detailCart.relatedList}/>
+                <Tags tagsList={dataItem.tagsList}/>
+                <Related  relatedList={detailCard.relatedList}/>
             </div>
             );
     }
 }
 
-export default CartDetail;
+export default CardDetail;

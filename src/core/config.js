@@ -3,6 +3,9 @@ const config = {
         currency: 'đ',
         setFirst: false,
         default: 'Contact'
+    },
+    product: {
+        urlDetail: '/detail/'
     }
 }
 

@@ -3,26 +3,12 @@ import { Item, Button, Icon, Label } from 'semantic-ui-react'
 import Utility from "../../core/Utility";
 
 class BoxPrice extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            price: 0,
-            discount: 0
-        }
-    }
-
-    componentWillMount() {
-        this.setState({
-            price: this.props.price,
-            discount: this.props.discount
-        })
-    }
 
     render () {
         let showPrice = ''
         let showAllPrice = false
-        let price = this.state.price
-        let discount = this.state.discount
+        let price = this.props.price
+        let discount = this.props.discount
 
         if (!Number.isInteger(price) || !Number.isInteger(discount)) {
             showPrice = <Label as='a' basic color='red' pointing='left'>{Utility.price('','')}</Label>
