@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Rating, Button, Reveal, Image, Item } from 'semantic-ui-react'
-import TabContent from './content'
+import TabContent from './tabcontent'
 import Related from './related'
 import Tags from './tags'
 import Colors from './colors'
@@ -10,8 +10,6 @@ import SocialButton from '../social/index'
 import './card.css'
 import Boxprice from './boxprice'
 
-const paragraph = <Image src='https://react.semantic-ui.com/assets/images/wireframe/short-paragraph.png' />
-
 class CardDetail extends Component {
     constructor (props) {
         super(props)
@@ -20,8 +18,6 @@ class CardDetail extends Component {
         }
     }
 
-    // componentWillRecieveProps --> shouldComponentUpdate-->componentWillUpdate
-    // -->render-->componentDidUpdate
     componentWillMount () {
         let id = this.props.match.params.id
         CardService.detail(id, (results) => {
@@ -31,14 +27,14 @@ class CardDetail extends Component {
 
     render() {
         let detailCard = this.state.detailCard
-
         // Map data
         let dataItem = {
             name: detailCard.title ? detailCard.title : '',
             image: '',
             price: detailCard.price,
             discount: detailCard.discount,
-            description: detailCard.excerpt,
+            excerpt: detailCard.excerpt,
+            content: detailCard.content,
             tagsList: detailCard.tags,
             colorList: detailCard.colors,
             sizeList: detailCard.sizes,
@@ -64,24 +60,23 @@ class CardDetail extends Component {
                             <span className='cinema'>Union Square 14</span>
                             </Item.Meta>
                             <Rating icon='star' pointing='right' defaultRating={3} maxRating={5} />
-
-                            <Item.Description>{paragraph}</Item.Description>
+                            {
+                                (dataItem.excerpt) ? <Item.Description>{dataItem.excerpt}</Item.Description> : ''
+                            }
                             <Boxprice price={dataItem.price} discount={dataItem.discount} />
                             <Colors colorList={dataItem.colorList}/>
                             <Sizes sizeList={dataItem.sizeList}/>
-                            <Item.Group divided>
-                                <Button.Group>
-                                    <Button>Buy</Button>
-                                    <Button.Or />
-                                    <Button positive as="a" href="tel:01668483699">Call: 0166 8483 699</Button>
-                                </Button.Group>
-                            </Item.Group>
+                            <Button.Group>
+                                <Button>Buy</Button>
+                                <Button.Or />
+                                <Button positive as="a" href="tel:01668483699">Call: 0166 8483 699</Button>
+                            </Button.Group>
                             <SocialButton />
                         </Item.Content>
                     </Item>
                 </Item.Group>
                 <Item.Group divided>
-                    <TabContent />
+                    <TabContent content={dataItem.content}/>
                 </Item.Group>
                 <Tags tagsList={dataItem.tagsList}/>
                 <Related  relatedList={dataItem.relatedList}/>
@@ -90,4 +85,4 @@ class CardDetail extends Component {
     }
 }
 
-export default CardDetail;
+export default CardDetail

@@ -5,15 +5,14 @@ class Sizes extends Component {
     render() {
         let sizeList = this.props.sizeList
         return (
-            <Item.Group divided>
-                <Item.Extra>
+            (sizeList && sizeList.length > 0)
+                ? <Item.Extra>
                     {
                         sizeList ? sizeList.map((item, i) => {
                             return <Label key={i} >{item.title}</Label>
                         }) : ''
                     }
-                </Item.Extra>
-            </Item.Group>
+                </Item.Extra> : ''
         );
     }
 }

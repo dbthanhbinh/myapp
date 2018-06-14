@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Card, Rating, Image as ImageComponent} from 'semantic-ui-react'
 import Boxprice from './boxprice'
-
 class CardItem extends Component {   
     renderCard () {
         let CardItem = this.props.CartItem

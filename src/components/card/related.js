@@ -6,15 +6,16 @@ class Related extends Component {
     render() {
         let relatedList = this.props.relatedList
         return (
-            <Card.Group itemsPerRow={3}>
-                {
-                    relatedList ? relatedList.map((element, i) =>
-                        <CardItem key={i}
-                                  CartItem={element}
-                        />
-                    ) : ''
-                }
-            </Card.Group>
+            ( relatedList && relatedList.length > 0 )
+                ? <Card.Group itemsPerRow={4}>
+                    {
+                        relatedList ? relatedList.map((element, i) =>
+                            <CardItem key={i}
+                                      CartItem={element}
+                            />
+                        ) : ''
+                    }
+                </Card.Group> : ''
         )
     }
 }

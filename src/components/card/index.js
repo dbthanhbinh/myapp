@@ -25,7 +25,7 @@ class CardList extends Component{
               {
                   listCard.map((element, i) =>
                   <CardItem key={i}
-                            CardItem={element}
+                            CartItem={element}
                   />
               )}
           </Card.Group>
